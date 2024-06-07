@@ -1,5 +1,6 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
+import Todos from "./components/Todos";
 import viteLogo from "/vite.svg";
 
 function App() {
@@ -27,19 +28,7 @@ function App() {
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="items-center text-xl mb-2 ">Todo List</h2>
-            <div className="space-y-2">
-              {/* Method Map untuk memanggil todo-item */}
-              {todos.map((todo) => {
-                return (
-                  <div className="flex justify-between items-center">
-                    <p className="list-item" key={todo.id}>
-                      {todo.title}
-                    </p>
-                    <span className="text-red-500 cursor-pointer">Del</span>
-                  </div>
-                );
-              })}
-            </div>
+            <Todos todos={todos} />
           </div>
         </div>
       </div>
