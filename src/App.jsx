@@ -13,7 +13,7 @@ function App() {
     {
       id: 2,
       title: "Have lunch with Guru Domba",
-      completed: false,
+      completed: true,
     },
     {
       id: 3,
