@@ -1,5 +1,6 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
+import TodoForm from "./components/TodoForm";
 import Todos from "./components/Todos";
 import viteLogo from "/vite.svg";
 
@@ -30,13 +31,37 @@ function App() {
     );
   };
 
+  const deleteTodo = (todoId) => {
+    setTodos(todos.filter((todo) => todo.id !== todoId));
+  };
+
+  const addTodo = (todoTitle) => {
+    if (todoTitle === "") {
+      return;
+    }
+
+    const newTodo = {
+      id: todos.length + 1,
+      title: todoTitle,
+      completed: false,
+    };
+
+    const updatedTodos = todos.concat(newTodo);
+    setTodos(updatedTodos);
+  };
+
   return (
     <>
       <div className="flex justify-center items-center min-h-screen bg-base-200">
         <div className="card w-96 bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="items-center text-xl mb-2 ">Todo List</h2>
-            <Todos todos={todos} toggleCompleted={toggleCompleted} />
+            <TodoForm addTodo={addTodo} />
+            <Todos
+              todos={todos}
+              toggleCompleted={toggleCompleted}
+              deleteTodo={deleteTodo}
+            />
           </div>
         </div>
       </div>

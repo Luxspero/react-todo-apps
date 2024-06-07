@@ -1,7 +1,7 @@
 import React from "react";
 import Todoitem from "./TodoItem";
 
-const Todos = ({ todos, toggleCompleted }) => {
+const Todos = ({ todos, toggleCompleted, deleteTodo }) => {
   return (
     <div className="space-y-2">
       {/* Method Map untuk memanggil todo-item */}
@@ -11,6 +11,7 @@ const Todos = ({ todos, toggleCompleted }) => {
             key={todo.id}
             todo={todo}
             toggleCompleted={toggleCompleted}
+            deleteTodo={deleteTodo}
           />
         );
       })}
