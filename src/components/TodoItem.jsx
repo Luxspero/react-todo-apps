@@ -1,9 +1,15 @@
 import React from "react";
 
-const Todoitem = ({ todo }) => {
+const Todoitem = ({ todo, toggleCompleted }) => {
   return (
     <>
       <div className="flex justify-between items-center">
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => toggleCompleted(todo.id)}
+          className="checkbox checkbox-primary"
+        />
         <p className={`ml-2 ${todo.completed ? "line-through" : ""}`}>
           {todo.title}
         </p>
