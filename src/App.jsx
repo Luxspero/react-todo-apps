@@ -1,27 +1,22 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import { useState, useEffect } from "react";
 import TodoForm from "./components/TodoForm";
 import Todos from "./components/Todos";
 import viteLogo from "/vite.svg";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "Finish Progate React Course",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Have lunch with Guru Domba",
-      completed: true,
-    },
-    {
-      id: 3,
-      title: "Study React with Ninja Ken",
-      completed: false,
-    },
-  ]);
+  // Fungsi untuk memuat data dari localStorage
+  const loadTodos = () => {
+    const storedTodos = localStorage.getItem("todolist");
+    return storedTodos ? JSON.parse(storedTodos) : [];
+  };
+
+  // State todos diinisialisasi dengan memanggil loadTodos
+  const [todos, setTodos] = useState(loadTodos());
+
+  // Efek samping untuk menyimpan data ke localStorage setiap kali todos berubah
+  useEffect(() => {
+    localStorage.setItem("todolist", JSON.stringify(todos));
+  }, [todos]);
 
   const toggleCompleted = (todoId) => {
     setTodos(
@@ -40,8 +35,11 @@ function App() {
       return;
     }
 
+    // Cari ID maksimal dari todos saat ini
+    const maxId =
+      todos.length > 0 ? Math.max(...todos.map((todo) => todo.id)) : 0;
     const newTodo = {
-      id: todos.length + 1,
+      id: maxId + 1,
       title: todoTitle,
       completed: false,
     };
