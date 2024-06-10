@@ -7,7 +7,14 @@ function App() {
   // Fungsi untuk memuat data dari localStorage
   const loadTodos = () => {
     const storedTodos = localStorage.getItem("todolist");
-    return storedTodos ? JSON.parse(storedTodos) : [];
+    const todos = storedTodos ? JSON.parse(storedTodos) : [];
+
+    return sortTodos(todos);
+  };
+
+  // fungsi untuk short todo
+  const sortTodos = (todos) => {
+    return todos.sort((a, b) => a.completed - b.completed);
   };
 
   // State todos diinisialisasi dengan memanggil loadTodos
@@ -19,15 +26,15 @@ function App() {
   }, [todos]);
 
   const toggleCompleted = (todoId) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-      )
+    const todo = todos.map((todo) =>
+      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
     );
+    setTodos(sortTodos(todo));
   };
 
   const deleteTodo = (todoId) => {
-    setTodos(todos.filter((todo) => todo.id !== todoId));
+    const todo = todos.filter((todo) => todo.id !== todoId);
+    return setTodos(sortTodos(todo));
   };
 
   const addTodo = (todoTitle) => {
@@ -46,6 +53,8 @@ function App() {
 
     const updatedTodos = todos.concat(newTodo);
     setTodos(updatedTodos);
+
+    return sortTodos(updatedTodos);
   };
 
   return (
